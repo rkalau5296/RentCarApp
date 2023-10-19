@@ -31,8 +31,8 @@ static void AddBorrower(IWriteRepository<Borrower> borrowerRepository)
 
 static void AddLenders(IWriteRepository<Lender> lenderRepository)
 {
-    lenderRepository.Add(new Lender { FirstName = "Przemek" });
-    lenderRepository.Add(new Lender { FirstName = "Tomek" });
+    lenderRepository.Add(new Lender { FirstName = "Robert" });
+    lenderRepository.Add(new Lender { FirstName = "Rafał" });
     lenderRepository.Save();
 }
 
