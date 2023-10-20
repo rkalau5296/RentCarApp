@@ -15,7 +15,7 @@ static void AddCars(IRepository<Car> carRepository)
     carRepository.Add(new Car { Brand = "Dacia", Model = "Duster" });
     carRepository.Save();
 }
-static void AddTruck(IWriteRepository<Truck> borrowerRepository)
+static void AddTruck(IWriteRepository<Truck> truckRepository)
 {
     truckRepository.Add(new Truck { Brand = "Mercedes", Model = "Mercedes Benz" });
     truckRepository.Add(new Truck { Brand = "Renault", Model = "Renault Trucks" });
