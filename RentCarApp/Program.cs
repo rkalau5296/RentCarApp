@@ -4,6 +4,7 @@ using RentCarApp.Repositories;
 
 var carRepository = new SqlRepoitory<Car>(new RentCarDbContext());
 AddCars(carRepository);
+AddTruck(carRepository);
 WriteAllToConsole(carRepository);
 
 static void AddCars(IRepository<Car> carRepository)
@@ -14,26 +15,11 @@ static void AddCars(IRepository<Car> carRepository)
     carRepository.Add(new Car { Brand = "Dacia", Model = "Duster" });
     carRepository.Save();
 }
-
-var borrowerRepository = new SqlRepoitory<Borrower>(new RentCarDbContext());
-AddBorrower(borrowerRepository);
-AddLenders(borrowerRepository);
-WriteAllToConsole(borrowerRepository);
-
-
-
-static void AddBorrower(IWriteRepository<Borrower> borrowerRepository)
+static void AddTruck(IWriteRepository<Borrower> borrowerRepository)
 {
-    borrowerRepository.Add(new Borrower { FirstName = "Przemek" });
-    borrowerRepository.Add(new Borrower { FirstName = "Tomek" });
-    borrowerRepository.Save();
-}
-
-static void AddLenders(IWriteRepository<Lender> lenderRepository)
-{
-    lenderRepository.Add(new Lender { FirstName = "Robert" });
-    lenderRepository.Add(new Lender { FirstName = "Rafał" });
-    lenderRepository.Save();
+    truckRepository.Add(new Truck { FirstName = "Scania" });
+    truckRepository.Add(new Borrower { FirstName = "Iveco" });
+    truckRepository.Save();
 }
 
 static void WriteAllToConsole(IReadRepository<IEntity> repository)
