@@ -17,8 +17,8 @@ static void AddCars(IRepository<Car> carRepository)
 }
 static void AddTruck(IWriteRepository<Borrower> borrowerRepository)
 {
-    truckRepository.Add(new Truck { FirstName = "Scania" });
-    truckRepository.Add(new Borrower { FirstName = "Iveco" });
+    truckRepository.Add(new Truck { Brand = "Mercedes", Model = "Mercedes Benz" });
+    truckRepository.Add(new Borrower { Brand = "Renault", Model = "Renault Trucks" });
     truckRepository.Save();
 }
 
