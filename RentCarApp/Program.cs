@@ -1,25 +1,36 @@
 ﻿using RentCarApp.Data;
 using RentCarApp.Entities;
 using RentCarApp.Repositories;
+using RentCarApp.Repositories.Extension;
 
-var carRepository = new SqlRepoitory<Car>(new RentCarDbContext());
-AddCars(carRepository);
-AddTruck(carRepository);
+SqlRepoitory<Car> carRepository = new(new RentCarDbContext(), CarAdded);
+carRepository.ItemAdded += CarRepositoryOnItemAdded;
+
+//AddCars(carRepository);
 WriteAllToConsole(carRepository);
+
+static void CarRepositoryOnItemAdded(object? sender, Car e)
+{
+    Console.WriteLine($"Car added => {e.Brand} from {sender?.GetType().Name}");
+}
+static void CarAdded(object item)
+{
+    Car car = (Car)item;
+    Console.WriteLine($"{car.Brand} added.");
+}
 
 static void AddCars(IRepository<Car> carRepository)
 {
-    carRepository.Add(new Car { Brand = "Fiat", Model = "Panda" });
-    carRepository.Add(new Car { Brand = "Ford", Model = "Sierra" });
-    carRepository.Add(new Car { Brand = "BMW", Model = "750" });
-    carRepository.Add(new Car { Brand = "Dacia", Model = "Duster" });
-    carRepository.Save();
-}
-static void AddTruck(IWriteRepository<Truck> truckRepository)
-{
-    truckRepository.Add(new Truck { Brand = "Mercedes", Model = "Mercedes Benz" });
-    truckRepository.Add(new Truck { Brand = "Renault", Model = "Renault Trucks" });
-    truckRepository.Save();
+    Car[] employees = new[]
+    {
+        new Car { Brand = "Ford", Model = "Focus"},
+        new Car { Brand = "Dacia", Model = "Duster"},
+        new Car { Brand = "Dacia", Model = "Lodgy"},
+        new Car { Brand = "Fiat", Model = "Panda"},
+        new Car { Brand = "Citroen", Model = "Xara"},
+    };
+
+    carRepository.AddBatch(employees);
 }
 
 static void WriteAllToConsole(IReadRepository<IEntity> repository)
