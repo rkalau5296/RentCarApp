@@ -1,43 +1,109 @@
-﻿using RentCarApp.Data;
+﻿using Azure.Core.Serialization;
+using RentCarApp.Data;
 using RentCarApp.Entities;
 using RentCarApp.Repositories;
 using RentCarApp.Repositories.Extension;
+using System.Text.Json;
 
-SqlRepoitory<Car> carRepository = new(new RentCarDbContext(), CarAdded);
+Console.WriteLine("Witam w programie RentCarApp.");
+Console.WriteLine("Aplikacja służy do dodawania samochodów do wypożyczalni.");
+Console.WriteLine("===========================================");
+
+SqlRepoitory<Car> carRepository = new(new RentCarDbContext(), CarAdded, CarRemoved);
 carRepository.ItemAdded += CarRepositoryOnItemAdded;
-
-//AddCars(carRepository);
-WriteAllToConsole(carRepository);
-
+carRepository.ItemRemoved += CarRepositoryOnItemRemoved;
 static void CarRepositoryOnItemAdded(object? sender, Car e)
 {
     Console.WriteLine($"Car added => {e.Brand} from {sender?.GetType().Name}");
 }
+
+static void CarRepositoryOnItemRemoved(object? sender, Car e)
+{
+    Console.WriteLine($"Car removed => {e.Brand} from {sender?.GetType().Name}");
+}
+
 static void CarAdded(object item)
 {
     Car car = (Car)item;
     Console.WriteLine($"{car.Brand} added.");
 }
-
+static void CarRemoved(object item)
+{
+    Car car = (Car)item;
+    Console.WriteLine($"{car.Brand} removed.");
+}
 static void AddCars(IRepository<Car> carRepository)
 {
-    Car[] employees = new[]
+    string path = @"C:\RentCarApp\RentCarApp\RentCarApp\bin\Debug\net7.0\inputData.json";
+    if (File.Exists(path))
     {
-        new Car { Brand = "Ford", Model = "Focus"},
-        new Car { Brand = "Dacia", Model = "Duster"},
-        new Car { Brand = "Dacia", Model = "Lodgy"},
-        new Car { Brand = "Fiat", Model = "Panda"},
-        new Car { Brand = "Citroen", Model = "Xara"},
-    };
-
-    carRepository.AddBatch(employees);
+        List<Car> cars = new()
+        {
+            new Car { Brand = "Ford", Model = "Focus"},
+            new Car { Brand = "Dacia", Model = "Duster"},
+            new Car { Brand = "Dacia", Model = "Lodgy"},
+            new Car { Brand = "Fiat", Model = "Panda"},
+            new Car { Brand = "Citroen", Model = "Xara"},
+        };
+        var objectsSerialized = JsonSerializer.Serialize<IEnumerable<Car>>(cars);
+        File.WriteAllText(path, objectsSerialized);
+        var deserializedObjects = JsonSerializer.Deserialize<IEnumerable<Car>>(objectsSerialized);
+        carRepository.AddBatch(deserializedObjects);
+    }   
 }
 
+static void RemoveCar(IRepository<Car> carRepository, Car car)
+{   
+    carRepository.RemoveItem(car);
+}
 static void WriteAllToConsole(IReadRepository<IEntity> repository)
 {
     var items = repository.GetAll();
     foreach (var item in items)
     {
         Console.WriteLine(item);
+    }
+}
+
+bool running = true;
+
+while (running)
+{
+    Console.WriteLine("Wybierz opcję:");
+    Console.WriteLine();
+    Console.WriteLine("1. Dodaj samochód do listy.");
+    Console.WriteLine("2. Wczytaj listę samochodów.");
+    Console.WriteLine("3. Usuń dany samochód.");
+    Console.WriteLine("4. Wyjście");
+
+    string imput = Console.ReadLine();
+
+    switch (imput)
+    {
+        case "1":
+            Console.Clear();
+            AddCars(carRepository);
+            Console.WriteLine();
+            break;
+
+        case "2":
+            Console.Clear();
+            WriteAllToConsole(carRepository);
+            break;
+
+        case "3":
+            Console.Clear();
+            string path = @"C:\RentCarApp\RentCarApp\RentCarApp\bin\Debug\net7.0\inputData.json";
+            List<Car>? deserializedObjects = JsonSerializer.Deserialize<IEnumerable<Car>>(File.ReadAllText(path))?.ToList();
+            RemoveCar(carRepository, deserializedObjects[0]);
+            break;
+
+        case "4":
+            running = false;
+            break;
+
+        default:
+            Console.WriteLine("Nieprawidłowy wybór. Wybierz 1, 2 lub 3.");
+            break;
     }
 }

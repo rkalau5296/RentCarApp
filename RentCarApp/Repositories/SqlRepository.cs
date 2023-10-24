@@ -8,14 +8,17 @@ namespace RentCarApp.Repositories
         private readonly DbSet<T> _dbSet;
         private readonly DbContext _dbContext;
         private readonly Action<T> itemAddedCallback;
-        public SqlRepoitory(DbContext dbContext, Action<T> itemAddedCallback = null)
+        private readonly Action<T> itemRemovedCallback;
+        public SqlRepoitory(DbContext dbContext, Action<T> itemAddedCallback = null, Action<T> itemRemovedCallback = null)
         {
             _dbContext = dbContext;
             _dbSet = _dbContext.Set<T>();
             this.itemAddedCallback = itemAddedCallback;
+            this.itemRemovedCallback = itemRemovedCallback;
         }
 
         public event EventHandler<T>? ItemAdded;
+        public event EventHandler<T>? ItemRemoved;
 
         public IEnumerable<T> GetAll()
         {
@@ -35,6 +38,8 @@ namespace RentCarApp.Repositories
         public void Remove(T item)
         {
             _dbSet.Remove(item);
+            itemRemovedCallback?.Invoke(item);
+            ItemRemoved?.Invoke(this, item);
         }
         public void Save()
         {
