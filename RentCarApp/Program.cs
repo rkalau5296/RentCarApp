@@ -1,25 +1,37 @@
-﻿using Azure.Core.Serialization;
-using RentCarApp.Data;
+﻿using RentCarApp.Data;
 using RentCarApp.Entities;
 using RentCarApp.Repositories;
 using RentCarApp.Repositories.Extension;
 using System.Text.Json;
+
+
+string auditFilePath = @"C:\RentCarApp\RentCarApp\RentCarApp\bin\Debug\net7.0\AuditLog.txt";
+using (StreamWriter writer = File.AppendText(auditFilePath))
+{
+    writer.WriteLine("Rozpoczęto logowanie: " + DateTime.Now);
+}
 
 Console.WriteLine("Witam w programie RentCarApp.");
 Console.WriteLine("Aplikacja służy do dodawania samochodów do wypożyczalni.");
 Console.WriteLine("===========================================");
 
 SqlRepoitory<Car> carRepository = new(new RentCarDbContext(), CarAdded, CarRemoved);
-carRepository.ItemAdded += CarRepositoryOnItemAdded;
-carRepository.ItemRemoved += CarRepositoryOnItemRemoved;
-static void CarRepositoryOnItemAdded(object? sender, Car e)
+carRepository.ItemAdded += (sender, e) => CarRepositoryOnItemAdded(sender, e, auditFilePath);
+carRepository.ItemRemoved += (sender, e) => CarRepositoryOnItemRemoved(sender, e, auditFilePath);
+static void CarRepositoryOnItemAdded(object? sender, Car e, string auditFilePath)
 {
     Console.WriteLine($"Car added => {e.Brand} from {sender?.GetType().Name}");
+    using StreamWriter writer = File.AppendText(auditFilePath);
+    string auditMessage = $"{DateTime.Now}: Car added => {e.Brand} from {sender?.GetType().Name}";
+    writer.WriteLine(auditMessage);
 }
 
-static void CarRepositoryOnItemRemoved(object? sender, Car e)
+static void CarRepositoryOnItemRemoved(object? sender, Car e, string auditFilePath)
 {
     Console.WriteLine($"Car removed => {e.Brand} from {sender?.GetType().Name}");
+    using StreamWriter writer = File.AppendText(auditFilePath);
+    string auditMessage = $"{DateTime.Now}: Car removed => {e.Brand} from {sender?.GetType().Name}";
+    writer.WriteLine(auditMessage);
 }
 
 static void CarAdded(object item)
@@ -106,4 +118,6 @@ while (running)
             Console.WriteLine("Nieprawidłowy wybór. Wybierz 1, 2 lub 3.");
             break;
     }
+
+    File.AppendAllText(auditFilePath, "Zakończono działanie aplikacji.");
 }
