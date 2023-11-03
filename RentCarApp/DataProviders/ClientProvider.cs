@@ -109,46 +109,6 @@ namespace RentCarApp.DataProviders
         public Client? SingleOrDefaultById(int id)
         {
             return _clientsRepository.GetAll().SingleOrDefault(x => x.Id == id);
-        }
-
-        public List<Client> TakeCars(int howMany)
-        {
-            return _clientsRepository.GetAll().OrderBy(x => x.Surname).Take(howMany).ToList();
-        }
-
-        public List<Client> TakeCars(Range range)
-        {
-            return _clientsRepository.GetAll().OrderBy(x => x.Surname).Take(range).ToList();
-        }
-
-        public List<Client> TakeCarsWhileSurnameStartsWith(string prefix)
-        {
-            return _clientsRepository.GetAll().OrderBy(x => x.Surname).TakeWhile(x => x.Surname.StartsWith(prefix)).ToList();
-        }
-
-        public List<Client> SkipCars(int howMany)
-        {
-            return _clientsRepository.GetAll().Skip(howMany).ToList();
-        }
-
-        public List<Client> SkipCarsWhileNameStartsWith(string prefix)
-        {
-            return _clientsRepository.GetAll().SkipWhile(x => x.Surname.StartsWith(prefix)).ToList();
-        }
-
-        public List<string> DistinctAllColors()
-        {
-            return _clientsRepository.GetAll().Select(x => x.Surname).Distinct().OrderBy(x => x).ToList();
-        }
-
-        public List<Client> DistinctByColors()
-        {
-            return _clientsRepository.GetAll().Distinct().OrderBy(x => x).ToList();
-        }
-
-        public List<Client[]> ChunkCars(int size)
-        {
-            return _clientsRepository.GetAll().Chunk(size).ToList();
-        }
+        }        
     }
 }

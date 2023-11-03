@@ -22,14 +22,6 @@ namespace RentCarApp.DataProviders
         Client? FirstOrDefaultByPenaltyPointsWithDefault(int penaltyPoint);
         Client LastByPenaltyPoints(int penaltyPoint);
         Client SingleById(int id);
-        Client? SingleOrDefaultById(int id);
-        List<Client> TakeCars(int howMany);
-        List<Client> TakeCars(Range range);
-        List<Client> TakeCarsWhileSurnameStartsWith(string prefix);
-        List<Client> SkipCars(int howMany);
-        List<Client> SkipCarsWhileNameStartsWith(string prefix);
-        List<string> DistinctAllColors();
-        List<Client> DistinctByColors();
-        List<Client[]> ChunkCars(int size);
+        Client? SingleOrDefaultById(int id);        
     }
 }

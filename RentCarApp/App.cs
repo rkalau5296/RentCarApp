@@ -45,19 +45,73 @@ namespace RentCarApp
                 Console.WriteLine(item);
             }
 
+            Console.WriteLine();
+            
             var clientList = GenerateSampleClients();
             foreach (var client in clientList)
             {
                 _clientRepository.Add(client);
             }
 
+            Console.WriteLine();
+            Console.WriteLine("GetTheYoungestClient");
             Console.WriteLine(_clientProvider.GetTheYoungestClient());
 
+            Console.WriteLine();
+            Console.WriteLine("OrderBySurnameAndAge");           
             foreach (var client in _clientProvider.OrderBySurnameAndAge())
             {
                 Console.WriteLine(client);
-            };            
-            
+            };
+
+            Console.WriteLine();
+            Console.WriteLine("OrderBySurnameAndAgeDesc");
+            Console.WriteLine(_clientProvider.OrderBySurnameAndAgeDesc());
+
+            Console.WriteLine();
+            Console.WriteLine("OrderByNameDescending");
+            Console.WriteLine(_clientProvider.OrderByNameDescending());
+
+            Console.WriteLine();
+            Console.WriteLine("OrderByName");
+            Console.WriteLine(_clientProvider.OrderByName());
+
+            Console.WriteLine();
+            Console.WriteLine("WhereStartsWith");
+            Console.WriteLine(_clientProvider.WhereStartsWith("Ro"));
+
+            Console.WriteLine();
+            Console.WriteLine("WhereStartsWithAndPenaltyPointIsGreaterThan");
+            Console.WriteLine(_clientProvider.WhereStartsWithAndPenaltyPointIsGreaterThan("Ro", 0));
+
+            Console.WriteLine();
+            Console.WriteLine("WhereSurnameIs");
+            Console.WriteLine(_clientProvider.WhereSurnameIs("Kowalski"));
+
+            Console.WriteLine();
+            Console.WriteLine("FirstByPenaltyPoint");
+            Console.WriteLine(_clientProvider.FirstByPenaltyPoint(10));
+
+            Console.WriteLine();
+            Console.WriteLine("FirstOrDefaultByPenaltyPoints");
+            Console.WriteLine(_clientProvider.FirstOrDefaultByPenaltyPoints(10));
+
+            Console.WriteLine();
+            Console.WriteLine("FirstOrDefaultByPenaltyPointsWithDefault");
+            Console.WriteLine(_clientProvider.FirstOrDefaultByPenaltyPointsWithDefault(10));
+
+            Console.WriteLine();
+            Console.WriteLine("LastByPenaltyPoints");
+            Console.WriteLine(_clientProvider.LastByPenaltyPoints(3));
+
+            Console.WriteLine();
+            Console.WriteLine("SingleById");
+            Console.WriteLine(_clientProvider.SingleById(1));
+
+            Console.WriteLine();
+            Console.WriteLine("SingleOrDefaultById");
+            Console.WriteLine(_clientProvider.SingleOrDefaultById(1));           
+
         }
 
         public List<Client> GenerateSampleClients()
