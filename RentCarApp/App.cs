@@ -25,25 +25,25 @@ namespace RentCarApp
         {
             Console.WriteLine("I'm here in run method.");
 
-            //Car[] cars = new[]
-            //{
-            //    new Car { Brand = "Fiat", Model="Panda" },
-            //    new Car { Brand = "Ford", Model="Sierra"},
-            //    new Car { Brand = "Dacia", Model="Panda"},
-            //};
+            Car[] cars = new[]
+            {
+                new Car { Brand = "Fiat", Model="Panda" },
+                new Car { Brand = "Ford", Model="Sierra"},
+                new Car { Brand = "Dacia", Model="Panda"},
+            };
 
-            //foreach (var item in cars)
-            //{
-            //    _carsRepository.Add(item);
-            //}
+            foreach (var item in cars)
+            {
+                _carsRepository.Add(item);
+            }
 
-            //_carsRepository.Save();
+            _carsRepository.Save();
 
-            //var items = _carsRepository.GetAll();
-            //foreach (var item in items)
-            //{
-            //    Console.WriteLine(item);
-            //}
+            var items = _carsRepository.GetAll();
+            foreach (var item in items)
+            {
+                Console.WriteLine(item);
+            }
 
             var clientList = GenerateSampleClients();
             foreach (var client in clientList)

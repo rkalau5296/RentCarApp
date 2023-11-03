@@ -43,7 +43,7 @@ namespace RentCarApp.DataProviders
 
         public decimal GetTheYoungestClient()
         {
-            return _clientsRepository.GetAll().Min(c => c.DateOfBirth.Year);
+            return _clientsRepository.GetAll().Max(c => c.DateOfBirth.Year);
         }        
 
         public List<Client> OrderBySurnameAndAge()
