@@ -66,27 +66,45 @@ namespace RentCarApp
 
             Console.WriteLine();
             Console.WriteLine("OrderBySurnameAndAgeDesc");
-            Console.WriteLine(_clientProvider.OrderBySurnameAndAgeDesc());
+            foreach (var client in _clientProvider.OrderBySurnameAndAgeDesc())
+            {
+                Console.WriteLine(client);
+            };            
 
             Console.WriteLine();
             Console.WriteLine("OrderByNameDescending");
-            Console.WriteLine(_clientProvider.OrderByNameDescending());
+            foreach (var client in _clientProvider.OrderByNameDescending())
+            {
+                Console.WriteLine(client);
+            };            
 
             Console.WriteLine();
             Console.WriteLine("OrderByName");
-            Console.WriteLine(_clientProvider.OrderByName());
-
+            foreach (var client in _clientProvider.OrderByName())
+            {
+                Console.WriteLine(client);
+            };
+            
             Console.WriteLine();
             Console.WriteLine("WhereStartsWith");
-            Console.WriteLine(_clientProvider.WhereStartsWith("Ro"));
+            foreach (var client in _clientProvider.WhereStartsWith("Ro"))
+            {
+                Console.WriteLine(client);
+            };
 
             Console.WriteLine();
             Console.WriteLine("WhereStartsWithAndPenaltyPointIsGreaterThan");
-            Console.WriteLine(_clientProvider.WhereStartsWithAndPenaltyPointIsGreaterThan("Ro", 0));
+            foreach (var client in _clientProvider.WhereStartsWithAndPenaltyPointIsGreaterThan("Ro",0))
+            {
+                Console.WriteLine(client);
+            };
 
             Console.WriteLine();
             Console.WriteLine("WhereSurnameIs");
-            Console.WriteLine(_clientProvider.WhereSurnameIs("Kowalski"));
+            foreach (var client in _clientProvider.WhereSurnameIs("Kowalski"))
+            {
+                Console.WriteLine(client);
+            };
 
             Console.WriteLine();
             Console.WriteLine("FirstByPenaltyPoint");

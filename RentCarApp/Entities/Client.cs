@@ -18,7 +18,7 @@ namespace RentCarApp.Entities
             StringBuilder sb = new(1024);
             sb.AppendLine($"{Name} {Surname} ID: {Id}");
             sb.AppendLine($"    DateOfBirth: {DateOfBirth.ToString("yyyy.MM.dd")}  TelephoneNumber: {TelephoneNumber}");
-            sb.AppendLine($"    DrivingLicenceNumber: {DrivingLicenceNumber:c}  PenaltyPoints: {PenaltyPoints:c}");
+            sb.AppendLine($"    DrivingLicenceNumber: {DrivingLicenceNumber}  PenaltyPoints: {PenaltyPoints}");
             
             return sb.ToString();
         }
