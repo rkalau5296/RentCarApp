@@ -1,5 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using RentCarApp.Entities;
+using RentCarApp.Data.Entities;
 
 namespace RentCarApp.Data
 {

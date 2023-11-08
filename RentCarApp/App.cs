@@ -1,11 +1,6 @@
-﻿using RentCarApp.DataProviders;
-using RentCarApp.Entities;
-using RentCarApp.Repositories;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using RentCarApp.Components.DataProviders;
+using RentCarApp.Data.Entities;
+using RentCarApp.Data.Entities.Repositories;
 
 namespace RentCarApp
 {

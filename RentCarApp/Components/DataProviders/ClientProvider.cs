@@ -1,8 +1,8 @@
-﻿using RentCarApp.Entities;
-using RentCarApp.Repositories;
+﻿using RentCarApp.Data.Entities;
+using RentCarApp.Data.Entities.Repositories;
 using System.Text;
 
-namespace RentCarApp.DataProviders
+namespace RentCarApp.Components.DataProviders
 {
     public class ClientProvider : IClientProvider
     {
@@ -16,10 +16,11 @@ namespace RentCarApp.DataProviders
         public string AnonymousCLass()
         {
 
-            var clients = _clientsRepository.GetAll().Select(client => new { 
-                Identifier = client.Id, 
-                ClientName = client.Name, 
-                ClientSurname = client.Surname, 
+            var clients = _clientsRepository.GetAll().Select(client => new
+            {
+                Identifier = client.Id,
+                ClientName = client.Name,
+                ClientSurname = client.Surname,
                 ClientDateOfBirth = client.DateOfBirth,
                 ClientTelephoneNumber = client.TelephoneNumber,
                 ClientDrivingLicenceNumber = client.DrivingLicenceNumber,
@@ -44,7 +45,7 @@ namespace RentCarApp.DataProviders
         public decimal GetTheYoungestClient()
         {
             return _clientsRepository.GetAll().Max(c => c.DateOfBirth.Year);
-        }        
+        }
 
         public List<Client> OrderBySurnameAndAge()
         {
@@ -78,7 +79,7 @@ namespace RentCarApp.DataProviders
 
         public List<Client> WhereSurnameIs(string surname)
         {
-            return _clientsRepository.GetAll().Where(c=> c.Surname == surname).ToList();
+            return _clientsRepository.GetAll().Where(c => c.Surname == surname).ToList();
         }
 
         public Client FirstByPenaltyPoint(int penaltyPoint)
@@ -109,6 +110,6 @@ namespace RentCarApp.DataProviders
         public Client? SingleOrDefaultById(int id)
         {
             return _clientsRepository.GetAll().SingleOrDefault(x => x.Id == id);
-        }        
+        }
     }
 }

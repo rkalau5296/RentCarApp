@@ -1,8 +1,8 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
 using RentCarApp;
-using RentCarApp.DataProviders;
-using RentCarApp.Entities;
-using RentCarApp.Repositories;
+using RentCarApp.Components.DataProviders;
+using RentCarApp.Data.Entities;
+using RentCarApp.Data.Entities.Repositories;
 
 var service = new ServiceCollection();
 service.AddSingleton<IApp, App>();

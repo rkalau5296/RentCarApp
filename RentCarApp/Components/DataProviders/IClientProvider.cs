@@ -1,11 +1,6 @@
-﻿using RentCarApp.Entities;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using RentCarApp.Data.Entities;
 
-namespace RentCarApp.DataProviders
+namespace RentCarApp.Components.DataProviders
 {
     public interface IClientProvider
     {
@@ -22,6 +17,6 @@ namespace RentCarApp.DataProviders
         Client? FirstOrDefaultByPenaltyPointsWithDefault(int penaltyPoint);
         Client LastByPenaltyPoints(int penaltyPoint);
         Client SingleById(int id);
-        Client? SingleOrDefaultById(int id);        
+        Client? SingleOrDefaultById(int id);
     }
 }

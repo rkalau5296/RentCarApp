@@ -1,7 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using RentCarApp.Entities;
+using RentCarApp.Data.Entities;
 
-namespace RentCarApp.Repositories
+namespace RentCarApp.Data.Entities.Repositories
 {
     public class SqlRepoitory<T> : IRepository<T> where T : class, IEntity, new()
     {

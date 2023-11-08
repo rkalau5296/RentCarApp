@@ -1,4 +1,4 @@
-﻿namespace RentCarApp.Entities
+﻿namespace RentCarApp.Data.Entities
 {
     public interface IEntity
     {

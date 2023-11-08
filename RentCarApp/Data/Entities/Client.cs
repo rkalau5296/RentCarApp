@@ -1,7 +1,6 @@
-﻿using System.Drawing;
-using System.Text;
+﻿using System.Text;
 
-namespace RentCarApp.Entities
+namespace RentCarApp.Data.Entities
 {
     public class Client : EntityBase
     {
@@ -10,7 +9,7 @@ namespace RentCarApp.Entities
         public DateTime DateOfBirth { get; set; }
         public string TelephoneNumber { get; set; }
         public string DrivingLicenceNumber { get; set; }
-        public int PenaltyPoints { get; set; }        
+        public int PenaltyPoints { get; set; }
 
         #region ToString Override
         public override string ToString()
@@ -19,7 +18,7 @@ namespace RentCarApp.Entities
             sb.AppendLine($"{Name} {Surname} ID: {Id}");
             sb.AppendLine($"    DateOfBirth: {DateOfBirth.ToString("yyyy.MM.dd")}  TelephoneNumber: {TelephoneNumber}");
             sb.AppendLine($"    DrivingLicenceNumber: {DrivingLicenceNumber}  PenaltyPoints: {PenaltyPoints}");
-            
+
             return sb.ToString();
         }
     }

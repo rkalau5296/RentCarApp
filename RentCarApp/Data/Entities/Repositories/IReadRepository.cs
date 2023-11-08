@@ -1,6 +1,6 @@
-﻿using RentCarApp.Entities;
+﻿using RentCarApp.Data.Entities;
 
-namespace RentCarApp.Repositories
+namespace RentCarApp.Data.Entities.Repositories
 {
     public interface IReadRepository<out T> where T : class, IEntity
     {
