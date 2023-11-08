@@ -13,19 +13,39 @@ namespace RentCarApp
         }
         public void Run()
         {
+            CreateXml();
+            QueryXml();
+        }
+        private void CreateXml()
+        {
             List<Car> records = _csvReader.ProcessCars(@"Resources\Files\fuel.csv");
             //var manufacturers = _csvReader.ProcessManufacturer(@"Resources\Files\manufacturers.csv");
 
             XDocument document = new();
-            XElement cars = new("Cars", 
+            XElement cars = new("Cars",
                 records
-                .Select(x => 
-                    new XElement("Car", 
+                .Select(x =>
+                    new XElement("Car",
                         new XAttribute("Name", x.Name),
                         new XAttribute("Combined", x.Combined),
-                        new XAttribute("Mnufacturer", x.Manufacturer))));
+                        new XAttribute("Manufacturer", x.Manufacturer))));
             document.Add(cars);
             document.Save("fuel.xml");
+        }
+        private void QueryXml()
+        {
+            var document = XDocument.Load("fuel.xml");
+            var names = document
+                .Element("Cars")?
+                .Elements("Car")
+                .Where(x => x.Attribute("Manufacturer")?.Value == "BMW")
+                .Select(x => x.Attribute("Name")?.Value);
+                
+            foreach ( var name in names)
+            {
+                Console.WriteLine(name);
+            }
+            
         }
     }
 }
