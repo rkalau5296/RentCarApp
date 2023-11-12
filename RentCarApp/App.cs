@@ -1,5 +1,7 @@
-﻿using RentCarApp.Components.CsvReader;
+﻿using Microsoft.EntityFrameworkCore.InMemory.Query.Internal;
+using RentCarApp.Components.CsvReader;
 using RentCarApp.Components.CsvReader.Models;
+using System.Linq;
 using System.Xml.Linq;
 
 namespace RentCarApp
@@ -13,12 +15,13 @@ namespace RentCarApp
         }
         public void Run()
         {
+            CreateNewXml();
             CreateXml();
             QueryXml();
         }
         private void CreateXml()
         {
-            List<Car> records = _csvReader.ProcessCars(@"Resources\Files\fuel.csv");
+            List<Car> records = _csvReader.ProcessCars(@"Resources\Files\fuel.csv");           
             //var manufacturers = _csvReader.ProcessManufacturer(@"Resources\Files\manufacturers.csv");
 
             XDocument document = new();
@@ -46,6 +49,33 @@ namespace RentCarApp
                 Console.WriteLine(name);
             }
             
+        }
+        private void CreateNewXml()
+        {
+            List<Car> carRecords = _csvReader.ProcessCars(@"Resources\Files\fuel.csv");
+            List<Manufacturer> manufacturersRecords = _csvReader.ProcessManufacturer(@"Resources\Files\manufacturers.csv");            
+
+            var document = new XDocument();
+            var manufacturers = new XElement("Manufacturers", manufacturersRecords
+                .Select(m =>
+                    new XElement("Manufacturer",
+                        new XAttribute("Name", m.Name),
+                        new XAttribute("Country", m.Country),
+                        carRecords
+                            .Where(c => c.Manufacturer == m.Name)
+                            .GroupBy(c => c.Manufacturer)
+                            .Select(combined =>
+                            new XElement("Cars",
+                                new XAttribute("country", m.Country),
+                                new XAttribute("CombinedSum", combined.Sum(c => c.Combined)),
+                                combined.Select(c =>
+                                    new XElement("Car",
+                                        new XAttribute("Name", c.Name),
+                                        new XAttribute("Combined", c.Combined)
+                                )))))));
+
+            document.Add(manufacturers);
+            document.Save("combined.xml");
         }
     }
 }
