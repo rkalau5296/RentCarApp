@@ -4,6 +4,11 @@
     {
 
         private readonly List<T> _items = new();
+
+        public event EventHandler<T>? ItemAdded;
+        public event EventHandler<T>? ItemRemoved;
+        public event EventHandler? ItemSaved;
+
         public IEnumerable<T> GetAll()
         {
             return _items.ToList();
