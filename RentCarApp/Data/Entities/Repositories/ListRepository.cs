@@ -1,6 +1,4 @@
-﻿using RentCarApp.Data.Entities;
-
-namespace RentCarApp.Data.Entities.Repositories
+﻿namespace RentCarApp.Data.Entities.Repositories
 {
     public class ListRepository<T> : IRepository<T> where T : class, IEntity, new()
     {

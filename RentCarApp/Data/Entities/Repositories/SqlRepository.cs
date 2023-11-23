@@ -1,5 +1,4 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using RentCarApp.Data.Entities;
 
 namespace RentCarApp.Data.Entities.Repositories
 {

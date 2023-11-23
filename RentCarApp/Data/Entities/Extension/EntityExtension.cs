@@ -1,5 +1,4 @@
 ﻿using System.Text.Json;
-using RentCarApp.Data.Entities;
 
 namespace RentCarApp.Data.Entities.Extension
 {

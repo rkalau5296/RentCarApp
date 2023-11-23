@@ -1,7 +1,4 @@
-﻿using RentCarApp.Data.Entities;
-using RentCarApp.Data.Entities.Repositories;
-
-namespace RentCarApp.Data.Entities.Repositories.Extension
+﻿namespace RentCarApp.Data.Entities.Repositories.Extension
 {
     public static class RepositoryExtentions
     {
