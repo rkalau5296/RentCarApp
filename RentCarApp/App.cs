@@ -15,13 +15,11 @@ namespace RentCarApp
             _rentCarAppDbContext = rentCarDbContext;
             _rentCarAppDbContext.Database.EnsureCreated();
         }
-
         public void Run()
         {
             _eventHandler.Subscribe();
             _userCommunication.Communication();
         }
-
     }
 }
 

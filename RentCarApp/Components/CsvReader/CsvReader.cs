@@ -18,7 +18,6 @@ namespace RentCarApp.Components.CsvReader
                 .ToCar();
             return cars.ToList();
         }
-
         public List<Manufacturer> ProcessManufacturer(string filePath)
         {
             if (!File.Exists(filePath))

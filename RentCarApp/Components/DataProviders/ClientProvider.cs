@@ -12,7 +12,6 @@ namespace RentCarApp.Components.DataProviders
         {
             _clientsRepository = clientsRepository;
         }
-
         public string AnonymousCLass()
         {
 
@@ -41,72 +40,58 @@ namespace RentCarApp.Components.DataProviders
             }
             return sb.ToString();
         }
-
         public decimal GetTheYoungestClient()
         {
             return _clientsRepository.GetAll().Max(c => c.DateOfBirth.Year);
         }
-
         public List<Client> OrderBySurnameAndAge()
         {
             return _clientsRepository.GetAll().OrderBy(x => x.Surname).ThenBy(x => x.DateOfBirth.Year).ToList();
         }
-
         public List<Client> OrderBySurnameAndAgeDesc()
         {
             return _clientsRepository.GetAll().OrderByDescending(x => x.Surname).ThenBy(x => x.DateOfBirth.Year).ToList();
         }
-
         public List<Client> OrderByNameDescending()
         {
             return _clientsRepository.GetAll().OrderByDescending(x => x.Surname).ToList();
         }
-
         public List<Client> OrderByName()
         {
             return _clientsRepository.GetAll().OrderBy(x => x.Surname).ToList();
         }
-
         public List<Client> WhereStartsWith(string prefix)
         {
             return _clientsRepository.GetAll().Where(x => x.Surname.StartsWith(prefix)).ToList();
         }
-
         public List<Client> WhereStartsWithAndPenaltyPointIsGreaterThan(string prefix, int minPenaltyPoint)
         {
             return _clientsRepository.GetAll().Where(x => x.Surname.StartsWith(prefix) && x.PenaltyPoints > minPenaltyPoint).ToList();
         }
-
         public List<Client> WhereSurnameIs(string surname)
         {
             return _clientsRepository.GetAll().Where(c => c.Surname == surname).ToList();
         }
-
         public Client FirstByPenaltyPoint(int penaltyPoint)
         {
             return _clientsRepository.GetAll().First(x => x.PenaltyPoints == penaltyPoint);
         }
-
         public Client? FirstOrDefaultByPenaltyPoints(int penaltyPoint)
         {
             return _clientsRepository.GetAll().FirstOrDefault(x => x.PenaltyPoints == penaltyPoint);
         }
-
         public Client? FirstOrDefaultByPenaltyPointsWithDefault(int penaltyPoint)
         {
             return _clientsRepository.GetAll().FirstOrDefault(x => x.PenaltyPoints == penaltyPoint, new Client { Id = -1, Name = "NOT FOUND" });
         }
-
         public Client LastByPenaltyPoints(int penaltyPoint)
         {
             return _clientsRepository.GetAll().Last(x => x.PenaltyPoints == penaltyPoint);
         }
-
         public Client SingleById(int id)
         {
             return _clientsRepository.GetAll().Single(x => x.Id == id);
         }
-
         public Client? SingleOrDefaultById(int id)
         {
             return _clientsRepository.GetAll().SingleOrDefault(x => x.Id == id);

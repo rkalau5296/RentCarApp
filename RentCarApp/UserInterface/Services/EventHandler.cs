@@ -13,7 +13,6 @@ namespace RentCarApp.UserInterface.Services
             _carRepository = bookRepository;
             _clientOwnerRepository = clientOwnerRepository;
         }
-
         public void Subscribe()
         {
             _carRepository.ItemAdded += OnItemAddedSubscribeEvent;
@@ -21,7 +20,6 @@ namespace RentCarApp.UserInterface.Services
             _clientOwnerRepository.ItemAdded += OnItemAddedSubscribeEvent;
             _clientOwnerRepository.ItemRemoved += OnItemRemovedSubscribeEvent;
         }
-
         static void OnItemRemovedSubscribeEvent(object? sender, IEntity e)
         {
             if (sender is not null)
@@ -30,7 +28,6 @@ namespace RentCarApp.UserInterface.Services
                 SaveToLogFile($"{senderName.Substring(0, senderName.Length - 2)}", $"{e.GetType().Name}Removed", e.ToString() ?? "");
             }
         }
-
         static void OnItemAddedSubscribeEvent(object? sender, IEntity e)
         {
             if (sender is not null)
@@ -39,7 +36,6 @@ namespace RentCarApp.UserInterface.Services
                 SaveToLogFile($"{senderName.Substring(0, senderName.Length - 2)}", $"{e.GetType().Name}Added", e.ToString() ?? "");
             }
         }
-
         static void SaveToLogFile(string repositoryType, string action, string comment)
         {
             using (var writer = File.AppendText($"RentCarAppLog.txt"))

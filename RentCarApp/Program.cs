@@ -21,6 +21,6 @@ services.AddDbContext<RentCarDbContext>(options => options
 .UseSqlServer("Server=DESKTOP-6QU5KCP;Database=RentCarDb;Trusted_Connection=True; TrustServerCertificate=True;"));
 
 var serviceProvider = services.BuildServiceProvider();
-var app = serviceProvider.GetService<IApp>()!;
+var app = serviceProvider.GetService<IApp>();
 app.Run();
 

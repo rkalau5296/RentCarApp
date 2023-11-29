@@ -1,22 +1,16 @@
-﻿using RentCarApp.Components.DataProviders;
-using RentCarApp.Data.Entities;
+﻿using RentCarApp.Data.Entities;
 using RentCarApp.Data.Entities.Repositories;
 
 namespace RentCarApp.UserInterface.Services
 {
     public class UserComunication : IUserComunication
     {
-        private readonly IRepository<Car> _carRepository;
-        private readonly IRepository<Client> _clientRepository;
-        private readonly IClientProvider _clientProvider;
+        private readonly IRepository<Car> _carRepository;        
 
-        public UserComunication(IRepository<Car> carRepository, IRepository<Client> clientRepository, IClientProvider clientProvider)
+        public UserComunication(IRepository<Car> carRepository)
         {
-            _carRepository = carRepository;
-            _clientRepository = clientRepository;
-            _clientProvider = clientProvider;
+            _carRepository = carRepository;            
         }
-
         public void Communication()
         {
             Console.WriteLine("Welcome to the RentACar program.The program stores information about cars and clients.");
@@ -29,7 +23,7 @@ namespace RentCarApp.UserInterface.Services
                 Console.WriteLine("1 - View all cars.");
                 Console.WriteLine("2 - Add new car.");
                 Console.WriteLine("3 - Remove car.");
-                Console.WriteLine("4 - Find car by id.");                
+                Console.WriteLine("4 - Find car by id.");
                 Console.WriteLine("Q - Close App.");
 
                 CheckCars();
@@ -49,7 +43,7 @@ namespace RentCarApp.UserInterface.Services
                         break;
                     case "4":
                         FindCarByID("Enter the number of books to display (intiger): ");
-                        break;             
+                        break;
                     case "Q":
                         isCloseApp = true;
                         break;
@@ -73,7 +67,7 @@ namespace RentCarApp.UserInterface.Services
             var userInput = Console.ReadLine();
             return userInput;
         }
-        protected T GetValueFromUser<T>(string comment) where T : struct
+        private T GetValueFromUser<T>(string comment) where T : struct
         {
             while (true)
             {
@@ -111,9 +105,11 @@ namespace RentCarApp.UserInterface.Services
         }
         private void AddCars()
         {
-            var car = new Car();
-            car.Model = GetInputFromUser("Enter the brand of the car: ");
-            car.Brand = GetInputFromUser("Enter the model of the car: ");            
+            Car car = new()
+            {
+                Model = GetInputFromUser("Enter the brand of the car: "),
+                Brand = GetInputFromUser("Enter the model of the car: ")
+            };
 
             _carRepository.Add(car);
             _carRepository.Save();
